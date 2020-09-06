@@ -1,0 +1,59 @@
+{
+  "name": "hwp-inline-runtime-chunk-plugin",
+  "version": "1.0.0",
+  "description": "Plugin to inline WebPack runtime chunks when using html-webpack-plugin",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "html-webpack-plugin",
+    "inline",
+    "runtime"
+  ],
+  "author": "Volodymyr Kolesnykov <volodymyr@wildwolf.name> (https://wildwolf.name/)",
+  "license": "MIT",
+  "homepage": "https://github.com/sjinks/hwp-attributes-plugin#readme",
+  "files": [
+    "dist/index.d.ts",
+    "dist/index.js",
+    "dist/index.js.map"
+  ],
+  "typings": "dist/index.d.ts",
+  "devDependencies": {
+    "@types/cheerio": "^0.22.21",
+    "@types/jest": "^26.0.13",
+    "@types/webpack": "^4.41.22",
+    "@types/webpack-sources": "^1.4.2",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "cheerio": "^1.0.0-rc.3",
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "html-webpack-plugin": "^4.4.1",
+    "jest": "^26.4.2",
+    "memfs": "^3.2.0",
+    "merge": "^1.2.1",
+    "prettier": "^2.1.1",
+    "ts-jest": "^26.3.0",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1"
+  },
+  "peerDependencies": {
+    "html-webpack-plugin": "^4.0.0"
+  },
+  "dependencies": {
+    "webpack-sources": "^1.4.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjinks/hwp-inline-runtime-chunk-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sjinks/hwp-inline-runtime-chunk-plugin/issues"
+  }
+}
