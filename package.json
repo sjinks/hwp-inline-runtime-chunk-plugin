@@ -41,13 +41,11 @@
     "prettier": "^2.1.1",
     "ts-jest": "^26.3.0",
     "typescript": "^4.0.2",
-    "webpack": "^4.44.1"
+    "webpack": "^4.44.1",
+    "webpack-sources": "^1.4.3"
   },
   "peerDependencies": {
     "html-webpack-plugin": "^4.0.0"
-  },
-  "dependencies": {
-    "webpack-sources": "^1.4.3"
   },
   "repository": {
     "type": "git",
