@@ -21,7 +21,7 @@ npm install --save-dev hwp-inline-runtime-chunk-plugin
 
 ```javascript
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HwpInlineRuntimeChunkPlugin = require('hwp-inline-runtime-chunk-plugin');
+const { HwpInlineRuntimeChunkPlugin } = require('hwp-inline-runtime-chunk-plugin');
 
 module.exports = {
   optimization: {
