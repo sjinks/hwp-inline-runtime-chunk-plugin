@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-node@v2.1.1
       with:
         node-version: ${{ matrix.node_version }}
-        
+
     - name: Install dependencies
       run: npm ci
 
@@ -41,8 +41,5 @@ jobs:
       with:
         node-version: ${{ matrix.node_version }}
 
-    - name: Install dependencies
-      run: npm ci
-
-    - name: Run tests
-      run: npm test
+    - name: Install dependencies and run tests
+      run: npm cit
