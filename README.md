@@ -1,5 +1,7 @@
 # hwp-inline-runtime-chunk-plugin
 
+![CI](https://github.com/sjinks/hwp-inline-runtime-chunk-plugin/workflows/Build%20&%20Test%20CI/badge.svg)
+
 This plugin automatically inline Webpack's runtime chunks. It requires [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin)
 
 This plugin was inspired by [html-webpack-inline-runtime-plugin](https://github.com/chippers/html-webpack-inline-runtime-plugin) and does pretty much the same but differently.
