@@ -41,7 +41,7 @@ export class HwpInlineRuntimeChunkPlugin {
         const path = compiler.options.output
             ? compiler.options.output.publicPath /* istanbul ignore next */
             : undefined;
-        if (typeof path === 'string') {
+        if (typeof path === 'string' && path.length) {
             return path.slice(-1) === '/' ? path : `${path}/`;
         }
 

@@ -205,7 +205,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
     );
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    it.each<any>(['/test', '/test/'])(
+    it.each<any>(['/test', '/test/', ''])(
         'should append trailing slash to output path if necessary (publicPath=%s)',
         (publicPath: string, done): void => {
             const compiler = webpack({
