@@ -24,7 +24,7 @@
   ],
   "typings": "dist/index.d.ts",
   "devDependencies": {
-    "@types/cheerio": "^0.22.21",
+    "@types/cheerio": "^0.22.22",
     "@types/jest": "^26.0.14",
     "@types/webpack": "^4.41.22",
     "@types/webpack-sources": "^1.4.2",
