@@ -28,13 +28,28 @@ const webpackConfig: webpack.Configuration = {
     },
 };
 
-const filesystem: webpack.OutputFileSystem = {
+const writeFile = (arg0: string, arg1: string | Buffer, arg2: (arg0?: NodeJS.ErrnoException) => void): void =>
+    fs.writeFile(arg0, arg1, (error) => arg2(error || undefined));
+
+const mkdir = (arg0: string, arg1: (arg0?: NodeJS.ErrnoException) => void): void =>
+    fs.mkdir(arg0, (error) => arg1(error || undefined));
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const stat = (arg0: string, arg1: (arg0?: NodeJS.ErrnoException, arg1?: any) => void): void =>
+    fs.stat(arg0, (error, stats) => arg1(error || undefined, stats));
+
+const readFile = (arg0: string, arg1: (arg0?: NodeJS.ErrnoException, arg1?: string | Buffer) => void): void =>
+    fs.readFile(arg0, (error, buf) => arg1(error || undefined, buf));
+
+const filesystem = {
     join: path.join,
-    mkdir: fs.mkdir,
+    mkdir,
     mkdirp: fs.mkdirp,
     rmdir: fs.rmdir,
     unlink: fs.unlink,
-    writeFile: fs.writeFile,
+    writeFile,
+    stat,
+    readFile,
 };
 
 function getOutput(): string {
@@ -158,51 +173,51 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
     it.each<any>([
         'eval',
         'inline-source-map',
-        'cheap-eval-source-map',
-        'cheap-source-map',
-        'cheap-module-eval-source-map',
-        'cheap-module-source-map',
-        'eval-source-map',
-        'source-map',
-        'nosources-source-map',
         'hidden-source-map',
-        'nosources-source-map',
+        'eval-source-map',
+        'inline-nosources-source-map',
+        'hidden-nosources-source-map',
+        'eval-nosources-source-map',
         'inline-cheap-source-map',
+        'hidden-cheap-source-map',
+        'eval-cheap-source-map',
+        'inline-nosources-cheap-source-map',
+        'hidden-nosources-cheap-source-map',
+        'eval-nosources-cheap-source-map',
         'inline-cheap-module-source-map',
-    ])(
-        'should strip source maps when asked to (devtool=%s)',
-        (type: webpack.Options.Devtool, done: jest.DoneCallback) => {
-            const compiler = webpack({
-                ...webpackConfig,
-                devtool: type,
-                optimization: {
-                    runtimeChunk: 'single',
-                },
-                plugins: [
-                    new HtmlWebpackPlugin(hwpOptions),
-                    new HwpInlineRuntimeChunkPlugin({ removeSourceMap: true }),
-                ],
-            });
+        'hidden-cheap-module-source-map',
+        'eval-cheap-module-source-map',
+        'inline-nosources-cheap-module-source-map',
+        'hidden-nosources-cheap-module-source-map',
+        'eval-nosources-cheap-module-source-map',
+    ])('should strip source maps when asked to (devtool=%s)', (type: string, done: jest.DoneCallback) => {
+        const compiler = webpack({
+            ...webpackConfig,
+            devtool: type,
+            optimization: {
+                runtimeChunk: 'single',
+            },
+            plugins: [new HtmlWebpackPlugin(hwpOptions), new HwpInlineRuntimeChunkPlugin({ removeSourceMap: true })],
+        });
 
-            compiler.outputFileSystem = filesystem;
-            compiler.run((err?: Error): void => {
-                try {
-                    expect(err).toBeFalsy();
-                    const html = getOutput();
-                    const $ = cheerio.load(html);
-                    const inlineScripts = $('script:not([src])');
-                    expect(inlineScripts.get()).toHaveLength(1);
+        compiler.outputFileSystem = filesystem;
+        compiler.run((err?: Error): void => {
+            try {
+                expect(err).toBeFalsy();
+                const html = getOutput();
+                const $ = cheerio.load(html);
+                const inlineScripts = $('script:not([src])');
+                expect(inlineScripts.get()).toHaveLength(1);
 
-                    const script = inlineScripts.html();
-                    expect(script).not.toContain('//# sourceMappingURL=');
+                const script = inlineScripts.html();
+                expect(script).not.toContain('//# sourceMappingURL=');
 
-                    setImmediate(done);
-                } catch (e) {
-                    setImmediate(done, e);
-                }
-            });
-        },
-    );
+                setImmediate(done);
+            } catch (e) {
+                setImmediate(done, e);
+            }
+        });
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     it.each<any>(['/test', '/test/', ''])(

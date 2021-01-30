@@ -1,5 +1,4 @@
-import type webpack from 'webpack';
-import type { Source } from 'webpack-sources';
+import type { Compilation, Compiler, sources } from 'webpack';
 import HtmlWebpackPlugin, { HtmlTagObject } from 'html-webpack-plugin';
 
 export interface Options {
@@ -22,8 +21,8 @@ export class HwpInlineRuntimeChunkPlugin {
         };
     }
 
-    public apply(compiler: webpack.Compiler): void {
-        compiler.hooks.compilation.tap(PLUGIN, (compilation: webpack.compilation.Compilation): void => {
+    public apply(compiler: Compiler): void {
+        compiler.hooks.compilation.tap(PLUGIN, (compilation: Compilation): void => {
             const runtimeChunkOption = compiler.options.optimization && compiler.options.optimization.runtimeChunk;
             if (runtimeChunkOption) {
                 const hooks = HtmlWebpackPlugin.getHooks(compilation);
@@ -36,35 +35,45 @@ export class HwpInlineRuntimeChunkPlugin {
         });
     }
 
-    private _getPublicPath(compiler: webpack.Compiler): string {
-        // 'undefined' route seems to be never taken, as webpack populates `options.output`
+    private _getPublicPath(compiler: Compiler): string {
+        // 'undefined' route seems to be never taken, because webpack populates `options.output`
         const path = compiler.options.output
             ? compiler.options.output.publicPath /* istanbul ignore next */
             : undefined;
-        if (typeof path === 'string' && path.length) {
-            return path.slice(-1) === '/' ? path : `${path}/`;
+
+        /* istanbul ignore else */
+        if (typeof path === 'string') {
+            // See https://github.com/jantimon/html-webpack-plugin/issues/1514
+            if (path === 'auto') {
+                return '';
+            }
+
+            if (path.length) {
+                return path.slice(-1) === '/' ? path : `${path}/`;
+            }
         }
 
         /* istanbul ignore next */
         return '';
     }
 
-    private _getRuntimeUris(compilation: webpack.compilation.Compilation): RuntimeUri[] {
+    private _getRuntimeUris(compilation: Compilation): RuntimeUri[] {
         const publicPath = this._getPublicPath(compilation.compiler);
         const result: RuntimeUri[] = [];
 
-        compilation.entrypoints
-            // entry is Entrypoint, but webpack does not provide its type definition
-            // see https://github.com/webpack/webpack/blob/webpack-4/lib/Entrypoint.js
-            .forEach((entry) => {
-                const runtimeChunk: webpack.compilation.Chunk = entry.getRuntimeChunk();
+        compilation.entrypoints.forEach((entry) => {
+            const runtimeChunk = entry.getRuntimeChunk();
+
+            /* istanbul ignore else */
+            if (runtimeChunk) {
                 runtimeChunk.files.forEach((file) => result.push({ file, url: publicPath + file }));
-            });
+            }
+        });
 
         return result;
     }
 
-    private _inlineRuntimes(runtimeUris: RuntimeUri[], compilation: webpack.compilation.Compilation) {
+    private _inlineRuntimes(runtimeUris: RuntimeUri[], compilation: Compilation) {
         return (tag: HtmlTagObject): void => {
             if (tag.attributes.src) {
                 const match = runtimeUris.find((uri) => uri.url === tag.attributes.src);
@@ -83,9 +92,9 @@ export class HwpInlineRuntimeChunkPlugin {
         };
     }
 
-    private _getAssetSourceCode(compilation: webpack.compilation.Compilation, file: string): string | undefined {
-        const entries = Object.entries<Source>(compilation.assets);
-        const entry: [string, Source] | undefined = entries.find((item) => item[0] === file);
+    private _getAssetSourceCode(compilation: Compilation, file: string): string | undefined {
+        const entries = Object.entries(compilation.assets);
+        const entry: [string, sources.Source] | undefined = entries.find((item) => item[0] === file);
         /* istanbul ignore else - the runtime chunk always exists (at least under normal circumstances) */
         if (entry) {
             const source = entry[1].source();
