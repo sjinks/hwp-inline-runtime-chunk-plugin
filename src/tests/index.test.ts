@@ -41,15 +41,23 @@ const stat = (arg0: string, arg1: (arg0?: NodeJS.ErrnoException, arg1?: any) => 
 const readFile = (arg0: string, arg1: (arg0?: NodeJS.ErrnoException, arg1?: string | Buffer) => void): void =>
     fs.readFile(arg0, (error, buf) => arg1(error || undefined, buf));
 
+const rmdir = (arg0: string, arg1: (arg0?: NodeJS.ErrnoException) => void): void =>
+    fs.mkdir(arg0, (error) => arg1(error || undefined));
+
+const unlink = (arg0: string, arg1: (arg0?: NodeJS.ErrnoException) => void): void =>
+    fs.unlink(arg0, (error) => arg1(error || undefined));
+
 const filesystem = {
     join: path.join,
-    mkdir,
+    mkdir: mkdir,
     mkdirp: fs.mkdirp,
-    rmdir: fs.rmdir,
-    unlink: fs.unlink,
-    writeFile,
-    stat,
-    readFile,
+    rmdir: rmdir,
+    unlink: unlink,
+    writeFile: writeFile,
+    stat: stat,
+    readFile: readFile,
+    relative: path.relative,
+    dirname: path.dirname,
 };
 
 function getOutput(): string {
