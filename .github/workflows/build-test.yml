@@ -13,6 +13,8 @@ on:
 
 jobs:
   prepare:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     outputs:
       head_tag: ${{ steps.head_tag.outputs.head_tag }}
@@ -29,6 +31,8 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/')
 
   build:
+    permissions:
+      contents: read
     name: Build and test
     runs-on: ubuntu-latest
     needs: prepare
@@ -54,6 +58,8 @@ jobs:
         run: npm cit
 
   release:
+    permissions:
+      contents: read
     name: Prepare the release
     runs-on: ubuntu-latest
     needs: build
