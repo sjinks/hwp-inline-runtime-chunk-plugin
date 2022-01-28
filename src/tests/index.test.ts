@@ -57,7 +57,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
         });
 
         compiler.outputFileSystem = filesystem;
-        compiler.run((err?: Error): void => {
+        compiler.run((err): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
@@ -82,7 +82,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
         });
 
         compiler.outputFileSystem = filesystem;
-        compiler.run((err?: Error): void => {
+        compiler.run((err): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
@@ -110,7 +110,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
         });
 
         compiler.outputFileSystem = filesystem;
-        compiler.run((err?: Error): void => {
+        compiler.run((err): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
@@ -140,7 +140,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
         });
 
         compiler.outputFileSystem = filesystem;
-        compiler.run((err?: Error): void => {
+        compiler.run((err): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
@@ -190,7 +190,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
         });
 
         compiler.outputFileSystem = filesystem;
-        compiler.run((err?: Error): void => {
+        compiler.run((err): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
@@ -225,7 +225,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
             });
 
             compiler.outputFileSystem = filesystem;
-            compiler.run((err?: Error): void => {
+            compiler.run((err): void => {
                 try {
                     expect(err).toBeFalsy();
                     const html = getOutput();
@@ -255,7 +255,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
         });
 
         compiler.outputFileSystem = filesystem;
-        compiler.run((err?: Error): void => {
+        compiler.run((err): void => {
             try {
                 expect(err).toBeFalsy();
                 const files = vol.toJSON();
@@ -293,7 +293,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
         });
 
         compiler.outputFileSystem = filesystem;
-        compiler.run((err?: Error): void => {
+        compiler.run((err): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
