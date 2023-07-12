@@ -31,7 +31,6 @@ const webpackConfig: webpack.Configuration = {
 const filesystem = {
     join: path.join,
     mkdir: fs.mkdir,
-    mkdirp: fs.mkdirp,
     rmdir: fs.rmdir,
     unlink: fs.unlink,
     writeFile: fs.writeFile,
