@@ -55,5 +55,9 @@
   },
   "bugs": {
     "url": "https://github.com/sjinks/hwp-inline-runtime-chunk-plugin/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
