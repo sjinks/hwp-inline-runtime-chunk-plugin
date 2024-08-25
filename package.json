@@ -1,6 +1,6 @@
 {
   "name": "hwp-inline-runtime-chunk-plugin",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Plugin to inline WebPack runtime chunks when using html-webpack-plugin",
   "main": "dist/index.js",
   "scripts": {
