@@ -37,9 +37,7 @@ export class HwpInlineRuntimeChunkPlugin {
 
     private _getPublicPath(compiler: Compiler): string {
         // 'undefined' route seems to be never taken, because webpack populates `options.output`
-        const path = compiler.options.output
-            ? compiler.options.output.publicPath /* istanbul ignore next */
-            : undefined;
+        const path = compiler.options.output?.publicPath;
 
         /* istanbul ignore else */
         if (typeof path === 'string') {
@@ -49,7 +47,7 @@ export class HwpInlineRuntimeChunkPlugin {
             }
 
             if (path.length) {
-                return path.slice(-1) === '/' ? path : `${path}/`;
+                return path.endsWith('/') ? path : `${path}/`;
             }
         }
 

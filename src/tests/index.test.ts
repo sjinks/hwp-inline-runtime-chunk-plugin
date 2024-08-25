@@ -1,6 +1,6 @@
 import path from 'path';
 import webpack, { type Compiler } from 'webpack';
-import cheerio from 'cheerio';
+import { load } from 'cheerio';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { fs, vol } from 'memfs';
 import { HwpInlineRuntimeChunkPlugin } from '../index';
@@ -60,7 +60,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
-                const $ = cheerio.load(html);
+                const $ = load(html);
                 const inlineScripts = $('script:not([src])');
                 expect(inlineScripts.get()).toHaveLength(0);
 
@@ -85,7 +85,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
-                const $ = cheerio.load(html);
+                const $ = load(html);
                 const inlineScripts = $('script:not([src])');
                 expect(inlineScripts.get()).toHaveLength(1);
 
@@ -113,7 +113,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
-                const $ = cheerio.load(html);
+                const $ = load(html);
                 const inlineScripts = $('script:not([src])');
                 expect(inlineScripts.get()).toHaveLength(3);
 
@@ -143,7 +143,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
-                const $ = cheerio.load(html);
+                const $ = load(html);
                 const inlineScripts = $('script:not([src])');
                 expect(inlineScripts.get()).toHaveLength(1);
 
@@ -193,7 +193,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
-                const $ = cheerio.load(html);
+                const $ = load(html);
                 const inlineScripts = $('script:not([src])');
                 expect(inlineScripts.get()).toHaveLength(1);
 
@@ -228,7 +228,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
                 try {
                     expect(err).toBeFalsy();
                     const html = getOutput();
-                    const $ = cheerio.load(html);
+                    const $ = load(html);
                     const inlineScripts = $('script:not([src])');
                     expect(inlineScripts.get()).toHaveLength(1);
 
@@ -264,7 +264,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
                 expect(keys[0]).toBeTruthy();
 
                 const html = files[keys[0]] as string;
-                const $ = cheerio.load(html);
+                const $ = load(html);
                 const inlineScripts = $('script:not([src])');
                 expect(inlineScripts.get()).toHaveLength(1);
 
@@ -296,7 +296,7 @@ describe('HwpInlineRuntimeChunkPlugin', (): void => {
             try {
                 expect(err).toBeFalsy();
                 const html = getOutput();
-                const $ = cheerio.load(html);
+                const $ = load(html);
                 const inlineScripts = $('script:not([src])');
                 expect(inlineScripts.get()).toHaveLength(1);
 
