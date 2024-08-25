@@ -28,11 +28,10 @@
   ],
   "typings": "dist/index.d.ts",
   "devDependencies": {
-    "@types/cheerio": "^0.22.23",
     "@types/jest": "^29.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0",
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-formatter-gha": "^1.4.1",
