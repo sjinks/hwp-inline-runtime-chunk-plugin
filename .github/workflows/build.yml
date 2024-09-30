@@ -26,29 +26,19 @@ jobs:
           - { name: LTS,          version: lts/* }
           - { name: Previous LTS, version: lts/-1 }
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7 # v2.10.1
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
+            objects.githubusercontent.com:443
+            nodejs.org:443
+            registry.npmjs.org:443
+
       - name: Build and test
         uses: myrotvorets/composite-actions/build-test-nodejs@master
         with:
           node-version: ${{ matrix.node.version }}
-
-  lint:
-    name: Check Code Style
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Run code style check
-        uses: myrotvorets/composite-actions/node-run-script@master
-        with:
-          script: lint
-
-  typecheck:
-    name: Check Types
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Run type check
-        uses: myrotvorets/composite-actions/node-run-script@master
-        with:
-          script: typecheck
