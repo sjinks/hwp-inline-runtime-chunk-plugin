@@ -6,9 +6,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint -f gha .",
-    "pretest": "npm run lint",
     "test": "jest",
-    "posttest": "npm run build",
+    "typecheck": "tsc --noEmit",
     "prepare": "npm run build"
   },
   "keywords": [

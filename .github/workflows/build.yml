@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and test (Node ${{ matrix.node.name }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        node:
+          - { name: Current,      version: current }
+          - { name: LTS,          version: lts/* }
+          - { name: Previous LTS, version: lts/-1 }
+    steps:
+      - name: Build and test
+        uses: myrotvorets/composite-actions/build-test-nodejs@master
+        with:
+          node-version: ${{ matrix.node.version }}
+
+  lint:
+    name: Check Code Style
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Run code style check
+        uses: myrotvorets/composite-actions/node-run-script@master
+        with:
+          script: lint
+
+  typecheck:
+    name: Check Types
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Run type check
+        uses: myrotvorets/composite-actions/node-run-script@master
+        with:
+          script: typecheck
