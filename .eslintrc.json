@@ -1,19 +1,14 @@
 {
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2019,
     "project": ["./tsconfig.json"]
   },
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "reportUnusedDisableDirectives": true,
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "@myrotvorets/myrotvorets-ts"
   ],
+  "root": true,
   "env": {
-    "jest": true
+    "es2022": true,
+    "node": true
   }
 }

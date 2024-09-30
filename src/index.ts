@@ -1,5 +1,5 @@
 import type { Compilation, Compiler, sources } from 'webpack';
-import HtmlWebpackPlugin, { HtmlTagObject } from 'html-webpack-plugin';
+import HtmlWebpackPlugin, { type HtmlTagObject } from 'html-webpack-plugin';
 
 export interface Options {
     removeSourceMap?: boolean;
@@ -13,7 +13,7 @@ interface RuntimeUri {
 }
 
 export class HwpInlineRuntimeChunkPlugin {
-    private _options: Required<Options>;
+    private readonly _options: Required<Options>;
 
     public constructor(options: Options = {}) {
         this._options = {
@@ -23,21 +23,22 @@ export class HwpInlineRuntimeChunkPlugin {
 
     public apply(compiler: Compiler): void {
         compiler.hooks.compilation.tap(PLUGIN, (compilation: Compilation): void => {
-            const runtimeChunkOption = compiler.options.optimization && compiler.options.optimization.runtimeChunk;
+            const runtimeChunkOption = compiler.options.optimization.runtimeChunk;
             if (runtimeChunkOption) {
                 const hooks = HtmlWebpackPlugin.getHooks(compilation);
-                hooks.alterAssetTags.tapAsync(PLUGIN, (data, cb): unknown => {
+                hooks.alterAssetTags.tapAsync(PLUGIN, (data, cb): void => {
                     const runtimeUris = this._getRuntimeUris(compilation);
                     data.assetTags.scripts.forEach(this._inlineRuntimes(runtimeUris, compilation));
-                    return cb(null, data);
+                    cb(null, data);
                 });
             }
         });
     }
 
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     private _getPublicPath(compiler: Compiler): string {
         // 'undefined' route seems to be never taken, because webpack populates `options.output`
-        const path = compiler.options.output?.publicPath;
+        const path = compiler.options.output.publicPath;
 
         /* istanbul ignore else */
         if (typeof path === 'string') {
@@ -80,7 +81,7 @@ export class HwpInlineRuntimeChunkPlugin {
                     /* istanbul ignore else - the runtime chunk always exists, so does its source code */
                     if (content) {
                         tag.innerHTML = this._options.removeSourceMap
-                            ? content.replace(/\/\/# sourceMappingURL=(.+)$/, '')
+                            ? content.replace(/\/\/# sourceMappingURL=(.+)$/u, '')
                             : content;
 
                         delete tag.attributes.src;
@@ -90,6 +91,7 @@ export class HwpInlineRuntimeChunkPlugin {
         };
     }
 
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     private _getAssetSourceCode(compilation: Compilation, file: string): string | undefined {
         const entries = Object.entries(compilation.assets);
         const entry: [string, sources.Source] | undefined = entries.find((item) => item[0] === file);
