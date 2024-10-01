@@ -76,14 +76,6 @@ jobs:
             fulcio.sigstore.dev:443
             rekor.sigstore.dev:443
 
-            - name: Set commit status to PENDING
-            uses: myrotvorets/set-commit-status-action@3730c0a348a2ace3c110851bed53331bc6406e9f # v2.0.1
-            with:
-              token: ${{ secrets.GITHUB_TOKEN }}
-              status: pending
-              context: Publish to npm
-              sha: ${{ github.sha }}
-    
       - name: Set up Node.js environment
         uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
@@ -98,12 +90,3 @@ jobs:
         run: npm publish *.tgz
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Set final commit status
-        uses: myrotvorets/set-commit-status-action@3730c0a348a2ace3c110851bed53331bc6406e9f # v2.0.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          status: ${{ job.status }}
-          context: Publish to npm
-          sha: ${{ github.sha }}
-        if: always()
