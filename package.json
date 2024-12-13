@@ -27,7 +27,7 @@
   ],
   "typings": "dist/index.d.ts",
   "devDependencies": {
-    "@myrotvorets/eslint-config-myrotvorets-ts": "^2.27.4",
+    "@myrotvorets/eslint-config-myrotvorets-ts": "^3.0.0",
     "cheerio": "^1.0.0",
     "eslint-formatter-gha": "^1.5.1",
     "html-webpack-plugin": "^5.6.0",
