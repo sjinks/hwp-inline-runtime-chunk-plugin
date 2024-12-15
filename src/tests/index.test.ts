@@ -1,7 +1,6 @@
 import { equal, ifError, match, ok } from 'node:assert/strict';
 import { dirname, join, relative } from 'node:path';
 import { afterEach, describe, it } from 'node:test';
-// eslint-disable-next-line import/no-named-as-default
 import webpack, { type Compiler } from 'webpack';
 import { load } from 'cheerio';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
