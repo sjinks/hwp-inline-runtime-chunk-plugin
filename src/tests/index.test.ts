@@ -57,6 +57,8 @@ void describe('HwpInlineRuntimeChunkPlugin', (): void => {
             plugins: [new HtmlWebpackPlugin(hwpOptions), new HwpInlineRuntimeChunkPlugin()],
         });
 
+        ok(compiler);
+
         compiler.outputFileSystem = filesystem;
         compiler.run((err): void => {
             try {
@@ -81,6 +83,8 @@ void describe('HwpInlineRuntimeChunkPlugin', (): void => {
             },
             plugins: [new HtmlWebpackPlugin(hwpOptions), new HwpInlineRuntimeChunkPlugin()],
         });
+
+        ok(compiler);
 
         compiler.outputFileSystem = filesystem;
         compiler.run((err): void => {
@@ -110,6 +114,8 @@ void describe('HwpInlineRuntimeChunkPlugin', (): void => {
             },
             plugins: [new HtmlWebpackPlugin(hwpOptions), new HwpInlineRuntimeChunkPlugin()],
         });
+
+        ok(compiler);
 
         compiler.outputFileSystem = filesystem;
         compiler.run((err): void => {
@@ -142,6 +148,8 @@ void describe('HwpInlineRuntimeChunkPlugin', (): void => {
             },
             plugins: [new HtmlWebpackPlugin(hwpOptions), new HwpInlineRuntimeChunkPlugin()],
         });
+
+        ok(compiler);
 
         compiler.outputFileSystem = filesystem;
         compiler.run((err): void => {
@@ -197,6 +205,8 @@ void describe('HwpInlineRuntimeChunkPlugin', (): void => {
                 ],
             });
 
+            ok(compiler);
+
             compiler.outputFileSystem = filesystem;
             compiler.run((err): void => {
                 try {
@@ -232,6 +242,8 @@ void describe('HwpInlineRuntimeChunkPlugin', (): void => {
                 plugins: [new HtmlWebpackPlugin(hwpOptions), new HwpInlineRuntimeChunkPlugin()],
             });
 
+            ok(compiler);
+
             compiler.outputFileSystem = filesystem;
             compiler.run((err): void => {
                 try {
@@ -262,6 +274,8 @@ void describe('HwpInlineRuntimeChunkPlugin', (): void => {
             },
             plugins: [new HtmlWebpackPlugin(hwpOptions), new HwpInlineRuntimeChunkPlugin()],
         });
+
+        ok(compiler);
 
         compiler.outputFileSystem = filesystem;
         compiler.run((err): void => {
@@ -301,6 +315,8 @@ void describe('HwpInlineRuntimeChunkPlugin', (): void => {
                 new HwpInlineRuntimeChunkPlugin(),
             ],
         });
+
+        ok(compiler);
 
         compiler.outputFileSystem = filesystem;
         compiler.run((err): void => {
