@@ -34,7 +34,7 @@
     "memfs": "^4.12.0",
     "node-reporter-gha": "^2.0.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2",
+    "typescript": "^7.0.0",
     "webpack": "^5.95.0"
   },
   "peerDependencies": {
